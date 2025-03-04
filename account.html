@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>View Account</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="trains.html">Trains</a>
+            <a href="add-train.html">Add Train</a>
+            <a href="account.html">View Account</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Enter Account Details</h2>
+        <form id="account-form">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="date" id="dob" required>
+            <button type="submit">Save Details</button>
+        </form>
+        <h3>Saved Details:</h3>
+        <p id="saved-details"></p>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
