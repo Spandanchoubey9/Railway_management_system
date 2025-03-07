@@ -1,3 +1,4 @@
+// Add Train to Local Storage
 document.getElementById('train-form')?.addEventListener('submit', function(event) {
     event.preventDefault();
     let train = {
@@ -10,22 +11,45 @@ document.getElementById('train-form')?.addEventListener('submit', function(event
     trains.push(train);
     localStorage.setItem('trains', JSON.stringify(trains));
     alert('Train Added!');
+    window.location.href = "trains.html";  // Redirect to train list
 });
 
+// Display Train List
 document.addEventListener('DOMContentLoaded', function() {
     let trains = JSON.parse(localStorage.getItem('trains')) || [];
     let tableBody = document.getElementById('train-list');
     if (tableBody) {
-        trains.forEach(train => {
-            let row = `<tr><td>${train.name}</td><td>${train.number}</td><td>${train.departure}</td><td>${train.arrival}</td></tr>`;
+        trains.forEach((train, index) => {
+            let row = `<tr>
+                <td>${train.name}</td>
+                <td>${train.number}</td>
+                <td>${train.departure}</td>
+                <td>${train.arrival}</td>
+                <td>
+                    <button onclick="deleteTrain(${index})">Delete</button>
+                </td>
+            </tr>`;
             tableBody.innerHTML += row;
         });
     }
 });
 
-document.getElementById('account-form')?.addEventListener('submit', function(event) {
-    event.preventDefault();
-    let name = document.getElementById('name').value;
-    let dob = document.getElementById('dob').value;
-    document.getElementById('saved-details').textContent = `Name: ${name}, DOB: ${dob}`;
-});
+// Delete Train
+function deleteTrain(index) {
+    let trains = JSON.parse(localStorage.getItem('trains')) || [];
+    trains.splice(index, 1);
+    localStorage.setItem('trains', JSON.stringify(trains));
+    location.reload();
+}
+
+// Search and Filter Trains
+function searchTrains() {
+    let query = document.getElementById('search').value.toLowerCase();
+    let rows = document.querySelectorAll('#train-list tr');
+    
+    rows.forEach(row => {
+        let trainName = row.cells[0].textContent.toLowerCase();
+        let trainNumber = row.cells[1].textContent.toLowerCase();
+        row.style.display = (trainName.includes(query) || trainNumber.includes(query)) ? "" : "none";
+    });
+}
